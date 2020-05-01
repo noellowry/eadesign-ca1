@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: door1-deployment
+  name: door1-sync-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: door1
+      app: door1-sync
   template:
     metadata:
       labels:
-        app: door1
+        app: door1-sync
     spec:
       containers:
-        - name: door1
+        - name: door1-sync
           args: ["1", "10", "redis-service:6379"]
           image: noellowry/door:v1
