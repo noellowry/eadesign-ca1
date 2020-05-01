@@ -15,4 +15,5 @@ spec:
     spec:
       containers:
         - name: door2-sync
+          args: ["2", "20", "redis-service:6379"]
           image: noellowry/door:v1
