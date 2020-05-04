@@ -56,4 +56,5 @@ echo "SYNC Average Response Time: `echo "scale=6; $avg_sync_rsp" | bc`";
 echo "ASYNC Average Response Time: `echo "scale=6; $avg_async_rsp" | bc`";
 
 gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.1-graph-'"$DATE"'.png", "plottype":"bar", "x":["SYNC", "ASYNC"], "y":["'"$avg_sync_rsp"'", "'"$avg_async_rsp"'"], "ylab":"Time in Seconds"}';
-gsutil cp gs://eades_msvcs_nlowry/2.1-graph-20200504202929.png .
+gsutil cp gs://eades_msvcs_nlowry/2.1-graph-"$DATE".png graphs
+#git add "graphs/2.1-graph-'"$DATE"'.png" ; git commit -m "Adding graph" ; git push
