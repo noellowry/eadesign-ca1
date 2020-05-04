@@ -14,5 +14,6 @@ spec:
     spec:
       containers:
         - name: door2
-          args: ["2", "20", "redis-service:6379"]
+          #args: ["2", "20", "redis-service:6379"]
+          args: ["2", "1", "redis-service:6379"]
           image: noellowry/door:v1
