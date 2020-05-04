@@ -1,12 +1,28 @@
 #!/bin/bash
 DATE=$(date +"%Y%m%d%H%M%S")
 total_time=0;
-count=5;
+count=100;
 avg_sync_rsp=0;
 avg_async_rsp=0;
 #################################
 #  Part 2.1                     #
 #################################
+# get_response_time(){
+#   for((i=1;i<=$1;i++)); 
+#   do 
+#     curl_result="$(curl $2 -s -o /dev/null -w "total:%{time_total}\n")"
+#     #echo $curl_result 
+
+#     var=$(echo $curl_result | awk -F":" '{print $1, $2}')
+#     set -- $var
+#     echo "$1 $2"
+#     total_time=$(bc <<< "scale=6; $total_time + $2")
+#   done
+
+#   echo $total_time
+# }
+# get_response_time $count, "http://35.228.112.214:30916"
+
 #Get SYNC RESPONSE TIME
 for((i=1;i<=$count;i++)); 
 do 
