@@ -52,9 +52,11 @@ kill_pod(){
   esac      
 }
 
+# Kill SYNC Pods
 kill_pod seccon-sync
 kill_pod door1-sync
 kill_pod door2-sync
+# Kill ASYNC Pods
 kill_pod seccon
 kill_pod door1
 kill_pod door2
@@ -62,4 +64,4 @@ kill_pod door2
 echo "Average SYNC Recovery times - seccon: $SECCON_SYNC_AVG door1: $DOOR1_SYNC_AVG door2: $DOOR2_SYNC_AVG"
 echo "Average ASYNC Recovery times - seccon: $SECCON_ASYNC_AVG door1: $DOOR1_ASYNC_AVG door2: $DOOR2_ASYNC_AVG"
 
-gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.3-graph-'"$DATE"'.png", "plottype":"bar", "x":["seccon-sync","door1-sync","door2-sync","seccon","door1","door2"], "y":["'"$SECCON_SYNC_AVG"'","'"$DOOR1_SYNC_AVG"'","'"$DOOR2_SYNC_AVG"'","'"$SECCON_ASYNC_AVG"'","'"$DOOR1_ASYNC_AVG"'","'"$DOOR2_ASYNC_AVG"'"], "ylab": "Avg startup time in seconds"}';
+gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.3-graph-'"$DATE"'.png", "plottype":"bar", "x":["seccon-sync","door1-sync","door2-sync","seccon-async","door1-async","door2-async"], "y":["'"$SECCON_SYNC_AVG"'","'"$DOOR1_SYNC_AVG"'","'"$DOOR2_SYNC_AVG"'","'"$SECCON_ASYNC_AVG"'","'"$DOOR1_ASYNC_AVG"'","'"$DOOR2_ASYNC_AVG"'"], "ylab": "Avg startup time in seconds"}';
