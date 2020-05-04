@@ -25,7 +25,7 @@ kill_pod(){
     TOTAL_TIME=$(bc <<< "$TOTAL_TIME + $SECS")
   done
   AVG_SECS=$(bc <<< "scale=2; $TOTAL_TIME/$COUNT")
-  echo "AVG:$AVG_SECS"
+  #echo "AVG:$AVG_SECS"
   
   case $1 in
     seccon-sync)
@@ -51,6 +51,9 @@ kill_pod(){
       ;;
   esac      
 }
+
+echo "Average SYNC Recovery times - seccon: $SECCON_SYNC_AVG door1: $DOOR1_SYNC_AVG door2: $DOOR2_SYNC_AVG"
+echo "Average ASYNC Recovery times - seccon: $SECCON_ASYNC_AVG door1: $DOOR1_ASYNC_AVG door2: $DOOR2_ASYNC_AVG"
 
 kill_pod seccon-sync
 kill_pod door1-sync
