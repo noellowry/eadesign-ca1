@@ -1,23 +1,35 @@
 #!/bin/bash
 DATE=$(date +"%Y%m%d%H%M%S")
 total_time=0;
-count=5;
+count=1;
 avg_sync_rsp=0;
 avg_async_rsp=0;
 #################################
 #  Part 2.3                     #
 #################################
+kill_pod(){
+  #echo "test $1t"
+  kubectl delete pod -l app="$1" -n ca-dev
+}
+
+kill_pod "seccon-sync"
+
 for((i=1;i<=$count;i++)); 
 do 
-  for pod in {"seccon-sync"};
+  for app in {"seccon-sync","door1-sync"};#,"door1-sync","door2-sync","seccon","door1","door2"};
+  #for app in {"seccon-sync"};
   do
-    kubectl delete pod -l app=$pod -n ca-dev 
+    echo $app
+    kubectl delete pod -l app=$app -n ca-dev 
 
-    CREATE_TIME=$(kubectl get pod -l app=$pod -n ca-dev -o json | jq -r '.items[0].metadata.creationTimestamp')#| awk -FT '{print $2}'| awk -FZ '{print $1}')
-    START_TIME=$(kubectl get pod -l app=$pod -n ca-dev -o json | jq -r '.items[0].status.containerStatuses[0].state.running.startedAt')#| awk -FT '{print $2}'|awk -FZ '{print $1}')
+    CREATE_TIME=$(kubectl get pod -l app=$app -n ca-dev -o json | jq -r '.items[0].metadata.creationTimestamp'| awk -FT '{print $1} {print $2}'| awk -FZ '{print $1}')
+    START_TIME=$(kubectl get pod -l app=$app -n ca-dev -o json | jq -r '.items[0].status.containerStatuses[0].state.running.startedAt'| awk -FT '{print $1} {print $2}'|awk -FZ '{print $1}')
 
     echo $CREATE_TIME;
     echo $START_TIME;
+
+    SECS=$(echo $(date -d "$START_TIME" +%s) - $(date -d "$CREATE_TIME" +%s) | bc)
+    echo $SECS
   done
 done
 
