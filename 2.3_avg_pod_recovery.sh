@@ -4,22 +4,21 @@
 #  Measure recovery times       #
 #################################
 DATE=$(date +"%Y%m%d%H%M%S")
-TOTAL_TIME=0;
 COUNT=1;
 SECS=0;
-AVG_SECS=0;
-SECCON_SYNC_AVG=0;
-DOOR1_SYNC_AVG=0;
-DOOR2_SYNC_AVG=0;
-SECCON_ASYNC_AVG=0;
-DOOR1_ASYNC_AVG=0;
-DOOR2_ASYNC_AVG=0;
+
 
 # kill pod function
 kill_pod(){
   # initialise values
   TOTAL_TIME=0
   AVG_SECS=0
+  SECCON_SYNC_AVG=0
+  DOOR1_SYNC_AVG=0
+  DOOR2_SYNC_AVG=0
+  SECCON_ASYNC_AVG=0
+  DOOR1_ASYNC_AVG=0
+  DOOR2_ASYNC_AVG=0
 
   # iterate based on COUNT
   for((i=1;i<=$COUNT;i++));
