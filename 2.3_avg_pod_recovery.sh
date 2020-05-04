@@ -4,7 +4,7 @@
 #  Measure recovery times       #
 #################################
 DATE=$(date +"%Y%m%d%H%M%S")
-COUNT=1;
+COUNT=5;
 SECS=0;
 SECCON_SYNC_AVG=0
 DOOR1_SYNC_AVG=0
@@ -25,7 +25,7 @@ kill_pod(){
     # delete pod
     kubectl delete pod -l app="$1" -n ca-dev
     # give pod chance to heal
-    sleep 5
+    sleep 10
 
     # extract times from json
     CREATE_TIME=$(kubectl get pod -l app=$1 -n ca-dev -o json | jq -r '.items[0].metadata.creationTimestamp'| awk -FT '{print $1} {print $2}'| awk -FZ '{print $1}')
