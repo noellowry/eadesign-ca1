@@ -1,10 +1,14 @@
 #!/bin/bash
-DATE=$(date +"%Y%m%d%H%M%S")
-total_time=0;
+TOTAL_TIME=0;
 COUNT=2;
 SECS=0;
 AVG_SECS=0;
 SECCON_SYNC_AVG=0;
+DOOR1_SYNC_AVG=0;
+DOOR2_SYNC_AVG=0;
+SECCON_ASYNC_AVG=0;
+DOOR1_ASYNC_AVG=0;
+DOOR2_ASYNC_AVG=0;
 #################################
 #  Part 2.3                     #
 #################################
@@ -18,14 +22,29 @@ kill_pod(){
     START_TIME=$(kubectl get pod -l app=$1 -n ca-dev -o json | jq -r '.items[0].status.containerStatuses[0].state.running.startedAt'| awk -FT '{print $1} {print $2}'|awk -FZ '{print $1}')
 
     SECS=$(bc <<< "$(date -d "$START_TIME" +%s) - $(date -d "$CREATE_TIME" +%s)")
-    total_time=$(bc <<< "$total_time + $SECS")
+    TOTAL_TIME=$(bc <<< "$TOTAL_TIME + $SECS")
   done
-  AVG_SECS=$(bc <<< "scale=2; $total_time/$COUNT")
+  AVG_SECS=$(bc <<< "scale=2; $TOTAL_TIME/$COUNT")
   echo "AVG:$AVG_SECS"
   
   case $1 in
     seccon-sync)
       SECCON_SYNC_AVG=$AVG_SECS
+      ;;
+    door1-sync)
+      DOOR1_SYNC_AVG=$AVG_SECS
+      ;;
+    door2-sync)
+      DOOR2_SYNC_AVG=$AVG_SECS
+      ;;
+    seccon)
+      SECCON_ASYNC_AVG=$AVG_SECS
+      ;;
+    door1)
+      DOOR1_ASYNC_AVG=$AVG_SECS
+      ;;
+    door2)
+      DOOR2_ASYNC_AVG=$AVG_SECS
       ;;
     *)
       echo -n "unknown"
@@ -34,7 +53,10 @@ kill_pod(){
 }
 
 kill_pod seccon-sync
-#VAR=$(kill_pod seccon-sync | awk -F '  *: ' '$1=="Mode"{print $2}')
-#echo "$VAR"
+kill_pod door1-sync
+kill_pod door2-sync
+kill_pod seccon
+kill_pod door1
+kill_pod door2
 
-gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.3-graph-'"$DATE"'.png", "plottype":"bar", "x":["seccon-sync"], "y":["'"$SECCON_SYNC_AVG"'"], "ylab": "Avg startuptime in seconds"}';
+gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.3-graph-'"$DATE"'.png", "plottype":"bar", "x":["seccon-sync","door1-sync","door2-sync","seccon","door1","door2"], "y":["'"$SECCON_SYNC_AVG"'","'"$DOOR1_SYNC_AVG"'","'"$DOOR2_SYNC_AVG"'","'"$SECCON_ASYNC_AVG"'","'"$DOOR1_ASYNC_AVG"'","'"$DOOR2_ASYNC_AVG"'"], "ylab": "Avg startup time in seconds"}';
