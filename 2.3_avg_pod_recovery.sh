@@ -17,6 +17,7 @@ DOOR2_ASYNC_AVG=0;
 
 # kill pod function
 kill_pod(){
+  # iterate based on COUNT
   for((i=1;i<=$COUNT;i++));
   do
     # delete pod
