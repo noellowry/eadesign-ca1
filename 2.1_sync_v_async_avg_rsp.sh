@@ -1,7 +1,7 @@
 #!/bin/bash
 DATE=$(date +"%Y%m%d%H%M%S")
 total_time=0;
-count=100;
+count=5;
 avg_sync_rsp=0;
 avg_async_rsp=0;
 #################################
@@ -56,7 +56,4 @@ echo "SYNC Average Response Time: `echo "scale=6; $avg_sync_rsp" | bc`";
 echo "ASYNC Average Response Time: `echo "scale=6; $avg_async_rsp" | bc`";
 
 gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.1-graph-'"$DATE"'.png", "plottype":"bar", "x":["SYNC", "ASYNC"], "y":["'"$avg_sync_rsp"'", "'"$avg_async_rsp"'"], "ylab":"Time in Seconds"}';
-
-#################################
-#  Part 2.2                     #
-#################################
+gsutil cp gs://eades_msvcs_nlowry/2.1-graph-20200504202929.png .
