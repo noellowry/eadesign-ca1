@@ -18,14 +18,14 @@ kill_pod(){
   # initialise values
   TOTAL_TIME=0
   AVG_SECS=0
-  
+
   # iterate based on COUNT
   for((i=1;i<=$COUNT;i++));
   do
     # delete pod
     kubectl delete pod -l app="$1" -n ca-dev
     # give pod chance to heal
-    sleep 10
+    sleep 5
 
     # extract times from json
     CREATE_TIME=$(kubectl get pod -l app=$1 -n ca-dev -o json | jq -r '.items[0].metadata.creationTimestamp'| awk -FT '{print $1} {print $2}'| awk -FZ '{print $1}')
