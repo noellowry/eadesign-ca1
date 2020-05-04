@@ -60,6 +60,8 @@ kill_pod(){
       echo -n "unknown"
       ;;
   esac      
+  $AVG_SECS=0
+  $TOTAL_TIME=0
 }
 
 # Kill SYNC Pods
