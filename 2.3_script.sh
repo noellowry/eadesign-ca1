@@ -1,44 +1,40 @@
 #!/bin/bash
 DATE=$(date +"%Y%m%d%H%M%S")
 total_time=0;
-count=1;
-avg_sync_rsp=0;
-avg_async_rsp=0;
+COUNT=2;
+SECS=0;
+AVG_SECS=0;
+SECCON_SYNC_AVG=0;
 #################################
 #  Part 2.3                     #
 #################################
 kill_pod(){
-  kubectl delete pod -l app="$1" -n ca-dev
+  for((i=1;i<=$COUNT;i++));
+  do
+    kubectl delete pod -l app="$1" -n ca-dev
+    sleep 10
 
-  CREATE_TIME=$(kubectl get pod -l app=$1 -n ca-dev -o json | jq -r '.items[0].metadata.creationTimestamp'| awk -FT '{print $1} {print $2}'| awk -FZ '{print $1}')
-  START_TIME=$(kubectl get pod -l app=$1 -n ca-dev -o json | jq -r '.items[0].status.containerStatuses[0].state.running.startedAt'| awk -FT '{print $1} {print $2}'|awk -FZ '{print $1}')
+    CREATE_TIME=$(kubectl get pod -l app=$1 -n ca-dev -o json | jq -r '.items[0].metadata.creationTimestamp'| awk -FT '{print $1} {print $2}'| awk -FZ '{print $1}')
+    START_TIME=$(kubectl get pod -l app=$1 -n ca-dev -o json | jq -r '.items[0].status.containerStatuses[0].state.running.startedAt'| awk -FT '{print $1} {print $2}'|awk -FZ '{print $1}')
 
-  echo $CREATE_TIME;
-  echo $START_TIME;
-
-  SECS=$(echo $(date -d "$START_TIME" +%s) - $(date -d "$CREATE_TIME" +%s) | bc)
-  echo $SECS
+    SECS=$(bc <<< "$(date -d "$START_TIME" +%s) - $(date -d "$CREATE_TIME" +%s)")
+    total_time=$(bc <<< "$total_time + $SECS")
+  done
+  AVG_SECS=$(bc <<< "scale=2; $total_time/$COUNT")
+  echo "AVG:$AVG_SECS"
+  
+  case $1 in
+    seccon-sync)
+      SECCON_SYNC_AVG=$AVG_SECS
+      ;;
+    *)
+      echo -n "unknown"
+      ;;
+  esac      
 }
 
-kill_pod "seccon-sync"
+kill_pod seccon-sync
+#VAR=$(kill_pod seccon-sync | awk -F '  *: ' '$1=="Mode"{print $2}')
+#echo "$VAR"
 
-# for((i=1;i<=$count;i++)); 
-# do 
-#   for app in {"seccon-sync","door1-sync"};#,"door1-sync","door2-sync","seccon","door1","door2"};
-#   #for app in {"seccon-sync"};
-#   do
-#     echo $app
-#     kubectl delete pod -l app=$app -n ca-dev 
-
-#     CREATE_TIME=$(kubectl get pod -l app=$app -n ca-dev -o json | jq -r '.items[0].metadata.creationTimestamp'| awk -FT '{print $1} {print $2}'| awk -FZ '{print $1}')
-#     START_TIME=$(kubectl get pod -l app=$app -n ca-dev -o json | jq -r '.items[0].status.containerStatuses[0].state.running.startedAt'| awk -FT '{print $1} {print $2}'|awk -FZ '{print $1}')
-
-#     echo $CREATE_TIME;
-#     echo $START_TIME;
-
-#     SECS=$(echo $(date -d "$START_TIME" +%s) - $(date -d "$CREATE_TIME" +%s) | bc)
-#     echo $SECS
-#   done
-# done
-
-#gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.3-graph-'"$DATE"'.png", "plottype":"line", "x":["2000", "10000", "20000"], "y":["0.066996","00.067789","0.067247", "0.066995", "0.067226", "0.066946", "0.066934", "0.066439", "0.066958"], "ylab":["Door publish interval: 10ms", "Door publish interval: 50ms", "Door publish interval: 100ms"]}';
+gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.3-graph-'"$DATE"'.png", "plottype":"bar", "x":["seccon-sync"], "y":["'"$SECCON_SYNC_AVG"'"], "ylab": "Avg startuptime in seconds"}';
