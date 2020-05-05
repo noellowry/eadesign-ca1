@@ -79,3 +79,4 @@ echo "Average ASYNC Recovery times - seccon: $SECCON_ASYNC_AVG door1: $DOOR1_ASY
 
 # call google cloud function 
 gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.3-graph-'"$DATE"'.png", "plottype":"bar", "x":["seccon-sync","door1-sync","door2-sync","seccon-async","door1-async","door2-async"], "y":["'"$SECCON_SYNC_AVG"'","'"$DOOR1_SYNC_AVG"'","'"$DOOR2_SYNC_AVG"'","'"$SECCON_ASYNC_AVG"'","'"$DOOR1_ASYNC_AVG"'","'"$DOOR2_ASYNC_AVG"'"], "xlab":["seccon-s","door1-s","door2-s","seccon-as","door1-as","door2-as"], "ylab": "Avg startup time in seconds"}';
+gsutil cp gs://eades_msvcs_nlowry/2.3-graph-'"$DATE"'.png graphs
