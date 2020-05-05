@@ -11,3 +11,4 @@ Graphs are stored in /graphs
 2.2
 Values were manually updated in manifest yaml files. Then run script 100 times and get average response time.
 The json for creating graph was manually created, and then call the graph cloud function via Postman
+
