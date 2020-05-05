@@ -23,6 +23,6 @@
 
 # echo "ASYNC Average Response Time: `echo "scale=6; $avg_async_rsp" | bc`";
 
-gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.2-graph-'"$DATE"'.png", "plottype":"line", "x":["2000", "10000"], "y":["0.06696", "0.067789", "0.06695", "0.067226, "0.066934", "0.066439], "ylab":["Poll 10ms", "Poll 20ms", "Poll 50ms"}';
+gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.2-graph-'"$DATE"'.png", "plottype":"line", "x":["2000", "10000"], "y":["0.06696", "0.067789", "0.06695", "0.067226, "0.066934", "0.066439"], "ylab":["Poll 10ms", "Poll 20ms", "Poll 50ms"}';
 # download image
 gsutil cp gs://eades_msvcs_nlowry/2.2-graph-$DATE.png graphs
