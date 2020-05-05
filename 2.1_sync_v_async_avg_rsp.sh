@@ -21,10 +21,10 @@ do
   # get total time using bc - binary calc
   TOTAL_TIME=$(bc <<< "scale=6; $TOTAL_TIME + $2")
 done
-
 # get average time
 AVG_SYNC_RSP=$(bc <<< "scale=6; $TOTAL_TIME/$COUNT")
 
+TOTAL_TIME=0
 #Get ASYNC RESPONSE TIME
 for((i=1;i<=$COUNT;i++)); 
 do 
