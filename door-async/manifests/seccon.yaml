@@ -34,7 +34,7 @@ spec:
         - name: seccon
           image: noellowry/seccon:v1
           #args: ["redis-service:6379", "2000", "50", "door1", "door2"] 
-          args: ["redis-service:6379", "2000", "1", "door1", "door2"]
+          args: ["redis-service:6379", "2000", "10", "door1", "door2"]
           ports:
           - containerPort: 8080	  
    
