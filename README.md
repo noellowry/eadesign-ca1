@@ -3,11 +3,39 @@ Part 1
 
 Part one builds on the labs provided. It uses the door example for both sync and async, modifying the news app from lab2 for the sync part.
 
+Sync Version
+http://35.228.112.214:30916/
+
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/sync.png "Sync")
+
+Async Version
+http://35.228.112.214:31080/
+
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/async.png "Async")
+
 Part 2
 
 For producing report and graphs, scripts and google cloud function using provided python script are used.
 Graphs are stored in /graphs
 
+2.1
+
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.1-console.png "2.1 Console Output")
+
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.1-graph-20200505172938.png "2.1 Graph")
+
+
+
 2.2
+
 Values were manually updated in manifest yaml files. Then run script 100 times and get average response time.
 The json for creating graph was manually created, and then call the graph cloud function via Postman
+
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.2-graph-from-postman.png "2.2")
+
+
+2.1
+
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.1-console.png "2.1 Console Output")
+
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.1-graph-20200505172938.png "2.1 Graph")
