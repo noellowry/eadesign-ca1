@@ -37,7 +37,7 @@ The json for creating graph was manually created, and then call the graph cloud 
 
 2.3
 
-Script kills pods for both sync and async. Does this 5 teams to get average recovery time.
+Script kills pods for both sync and async. Does this 5 times to get average recovery time.
 
 ![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.3-console.png "2.3 Console Output")
 
