@@ -1,5 +1,5 @@
 # eadesign-ca1 
-Part 1
+# Part 1
 
 Part one builds on the labs provided. It uses the door example for both sync and async, modifying the news app from lab2 for the sync part.
 
@@ -13,12 +13,12 @@ http://35.228.112.214:31080/
 
 ![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/async.png "Async")
 
-Part 2
+# Part 2
 
 For producing report and graphs, scripts and google cloud function using provided python script are used.
 Graphs are stored in /graphs
 
-2.1
+## 2.1
 
 ![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.1-console.png "2.1 Console Output")
 
@@ -26,7 +26,7 @@ Graphs are stored in /graphs
 
 
 
-2.2
+## 2.2
 
 Values were manually updated in manifest yaml files. kubectl replace and apply was used to update deployments. Then run script 100 times and get average response time.
 The json for creating graph was manually created, and then call the graph cloud function via Postman
@@ -35,7 +35,7 @@ The json for creating graph was manually created, and then call the graph cloud 
 ![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.2-graph-from-postman.png "2.2 Graph")
 
 
-2.3
+## 2.3
 
 Script kills pods for both sync and async. Does this 5 times to get average recovery time.
 
