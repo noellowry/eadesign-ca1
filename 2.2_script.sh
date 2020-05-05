@@ -23,4 +23,4 @@ avg_async_rsp=$(bc <<< "scale=6; $total_time/$count")
 
 echo "ASYNC Average Response Time: `echo "scale=6; $avg_async_rsp" | bc`";
 
-gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.2-graph-'"$DATE"'.png", "plottype":"line", "x":["10"], "y":["'"$avg_async_rsp"'"], "ylab":"Door publish interval: 10ms", "Polling Frequency 10ms"}';
+gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.2-graph-'"$DATE"'.png", "plottype":"line", "x":["10"], "y":["'"$avg_async_rsp"'"], "ylab":"Polling Frequency 10ms"}';

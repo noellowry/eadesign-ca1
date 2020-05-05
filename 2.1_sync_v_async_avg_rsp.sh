@@ -45,4 +45,4 @@ echo "ASYNC Average Response Time: `echo "scale=6; $AVG_ASYNC_RSP" | bc`";
 # call google cloud function
 gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.1-graph-'"$DATE"'.png", "plottype":"bar", "x":["SYNC", "ASYNC"], "y":["'"$AVG_SYNC_RSP"'", "'"$AVG_ASYNC_RSP"'"], "ylab":"Time in Seconds"}';
 # download image
-gsutil cp gs://eades_msvcs_nlowry/2.1-graph-'"$DATE"'.png graphs
+gsutil cp gs://eades_msvcs_nlowry/2.1-graph-$DATE.png graphs
