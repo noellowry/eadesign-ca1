@@ -5,5 +5,5 @@ Part one builds on the labs provided. It uses the door example for both sync and
 
 Part 2
 
-For producing report and graphs, script and google cloud function using provided python script are used.
+For producing report and graphs, scripts and google cloud function using provided python script are used.
 Graphs are stored in /graphs
