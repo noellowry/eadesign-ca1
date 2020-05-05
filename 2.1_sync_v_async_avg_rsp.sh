@@ -1,7 +1,7 @@
 #!/bin/bash
 ###################################
 #  Part 2.1                       #
-#  Measure average resonse times  #
+#  Measure average response times  #
 ###################################
 DATE=$(date +"%Y%m%d%H%M%S")
 TOTAL_TIME=0;

@@ -20,6 +20,8 @@ Graphs are stored in /graphs
 
 ## 2.1
 
+Script meaures avaerage response time for Sync and Async over 200 iterations. Outputs to console and creates graph using cloud function
+
 ![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.1-console.png "2.1 Console Output")
 
 ![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.1-graph-20200505172938.png "2.1 Graph")
@@ -38,6 +40,7 @@ The json for creating graph was manually created, and then call the graph cloud 
 ## 2.3
 
 Script kills pods for both sync and async. Does this 5 times to get average recovery time.
+Average recovery times are printed to console and then graph created using cloud function.
 
 ![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.3-console.png "2.3 Console Output")
 
