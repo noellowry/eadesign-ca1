@@ -31,12 +31,15 @@ Graphs are stored in /graphs
 Values were manually updated in manifest yaml files. kubectl replace and apply was used to update deployments. Then run script 100 times and get average response time.
 The json for creating graph was manually created, and then call the graph cloud function via Postman
 
-![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.2-graph-from-postman.png "2.2")
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.2-postman.png "2.2 Postman")
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.2-graph-from-postman.png "2.2 Graph")
 
 
-2.1
+2.3
 
-![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.1-console.png "2.1 Console Output")
+Script kills pods for both sync and async. Does this 5 teams to get average recovery time.
 
-![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.1-graph-20200505172938.png "2.1 Graph")
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/images/2.3-console.png "2.3 Console Output")
+
+![alt text](https://github.com/noellowry/eadesign-ca1/raw/master/graphs/2.3-graph-20200505173857.png "2.3 Graph")
 
