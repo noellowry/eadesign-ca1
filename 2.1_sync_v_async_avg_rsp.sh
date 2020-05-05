@@ -1,30 +1,16 @@
 #!/bin/bash
+###################################
+#  Part 2.1                       #
+#  Measure average resonse times  #
+###################################
 DATE=$(date +"%Y%m%d%H%M%S")
-total_time=0;
-count=5;
-avg_sync_rsp=0;
-avg_async_rsp=0;
-#################################
-#  Part 2.1                     #
-#################################
-# get_response_time(){
-#   for((i=1;i<=$1;i++)); 
-#   do 
-#     curl_result="$(curl $2 -s -o /dev/null -w "total:%{time_total}\n")"
-#     #echo $curl_result 
-
-#     var=$(echo $curl_result | awk -F":" '{print $1, $2}')
-#     set -- $var
-#     echo "$1 $2"
-#     total_time=$(bc <<< "scale=6; $total_time + $2")
-#   done
-
-#   echo $total_time
-# }
-# get_response_time $count, "http://35.228.112.214:30916"
+TOTAL_TIME=0;
+COUNT=200;
+AVG_SYNC_RSP=0;
+AVG_ASYNC_RSP=0;
 
 #Get SYNC RESPONSE TIME
-for((i=1;i<=$count;i++)); 
+for((i=1;i<=$COUNT;i++)); 
 do 
   curl_result="$(curl http://35.228.112.214:30916/ -s -o /dev/null -w "total:%{time_total}\n")"
   #echo $curl_result 
@@ -32,15 +18,15 @@ do
   var=$(echo $curl_result | awk -F":" '{print $1, $2}')
   set -- $var
   echo "$1 $2"
-  total_time=$(bc <<< "scale=6; $total_time + $2")
+  TOTAL_TIME=$(bc <<< "scale=6; $TOTAL_TIME + $2")
 done
 
-avg_sync_rsp=$(bc <<< "scale=6; $total_time/$count")
-#echo $avg_sync_rsp;
-#echo "SYNC Average Response Time: `echo "scale=6; $avg_sync_rsp" | bc`";
+AVG_SYNC_RSP=$(bc <<< "scale=6; $TOTAL_TIME/$COUNT")
+#echo $AVG_SYNC_RSP;
+#echo "SYNC Average Response Time: `echo "scale=6; $AVG_SYNC_RSP" | bc`";
 
 #Get ASYNC RESPONSE TIME
-for((i=1;i<=$count;i++)); 
+for((i=1;i<=$COUNT;i++)); 
 do 
   curl_result="$(curl http://35.228.112.214:31080/ -s -o /dev/null -w "total:%{time_total}\n")"
   #echo $curl_result 
@@ -48,13 +34,11 @@ do
   var=$(echo $curl_result | awk -F":" '{print $1, $2}')
   set -- $var
   echo "$1 $2"
-  total_time=$(bc <<< "scale=6; $total_time + $2")
+  TOTAL_TIME=$(bc <<< "scale=6; $TOTAL_TIME + $2")
 done
-avg_async_rsp=$(bc <<< "scale=6; $total_time/$count")
+AVG_ASYNC_RSP=$(bc <<< "scale=6; $TOTAL_TIME/$COUNT")
 
-echo "SYNC Average Response Time: `echo "scale=6; $avg_sync_rsp" | bc`";
-echo "ASYNC Average Response Time: `echo "scale=6; $avg_async_rsp" | bc`";
+echo "SYNC Average Response Time: `echo "scale=6; $AVG_SYNC_RSP" | bc`";
+echo "ASYNC Average Response Time: `echo "scale=6; $AVG_ASYNC_RSP" | bc`";
 
-gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.1-graph-'"$DATE"'.png", "plottype":"bar", "x":["SYNC", "ASYNC"], "y":["'"$avg_sync_rsp"'", "'"$avg_async_rsp"'"], "ylab":"Time in Seconds"}';
-gsutil cp gs://eades_msvcs_nlowry/2.1-graph-"$DATE".png graphs
-#git add "graphs/2.1-graph-'"$DATE"'.png" ; git commit -m "Adding graph" ; git push
+gcloud functions call create-graph --project eadesign-269520 --data '{"filename":"2.1-graph-'"$DATE"'.png", "plottype":"bar", "x":["SYNC", "ASYNC"], "y":["'"$AVG_SYNC_RSP"'", "'"$AVG_ASYNC_RSP"'"], "ylab":"Time in Seconds"}';
